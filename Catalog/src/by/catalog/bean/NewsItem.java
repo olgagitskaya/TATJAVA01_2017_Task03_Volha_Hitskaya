@@ -18,5 +18,15 @@ public class NewsItem {
         this.newsText = newsText;
     }
 
+    public String getTitle()
+    {
+        return this.title;
+    }
+
+    public String getNewsText()
+    {
+        return this.newsText;
+    }
+
 
 }

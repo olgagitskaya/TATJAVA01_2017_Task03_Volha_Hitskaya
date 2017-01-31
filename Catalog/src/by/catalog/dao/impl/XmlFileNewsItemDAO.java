@@ -20,7 +20,7 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     private ArrayList<NewsItem> filmNews = new ArrayList<NewsItem>();
     private ArrayList<NewsItem> bookNews = new ArrayList<NewsItem>();
     private ArrayList<NewsItem> diskNews = new ArrayList<NewsItem>();
-    ArrayList<NewsItem> allNews = new ArrayList();
+
 
     private XmlFileNewsItemDAO() //обработать exception !!!!!!!!!!
     {
@@ -63,30 +63,55 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     }
 
     @Override
-    public void addNewsItem()
+    public void addNewsItem(String category, NewsItem newsItem)
     {
-
+        if(category.equals("FilmNews"))
+        {
+            this.filmNews.add(newsItem);
+        }
+        else if(category.equals("BookNews"))
+        {
+            this.bookNews.add(newsItem);
+        }
+        else if(category.equals("DiskNews"))
+        {
+            this.diskNews.add(newsItem);
+        }
     }
 
     @Override
-    public void searchNewsItemByTitle(String title) //обработать Exception!!!
+    public String getNewsItemByTitle(String title)
     {
-        try{
-            for(NewsItem newsItem: allNews)
+        ArrayList<NewsItem> allNews = getAllNews();
+        for(NewsItem newsItem: allNews)
             {
-                if(newsItem.getClass().getField(title).)
-
+                if(newsItem.getTitle().equals(title))
+                {
+                    return title;
+                }
             }
-        }catch(Exception e){
-            throw new RuntimeException(e);
+        return null;
     }
 
-
+    @Override
+    public ArrayList<NewsItem> getNewsItemByNewsText(String text)
+    {
+        ArrayList<NewsItem> allNews = getAllNews();
+        ArrayList<NewsItem> newsResults = new ArrayList<NewsItem>();
+        for(NewsItem newsItem: allNews)
+        {
+            if(newsItem.getNewsText().contains(text))
+            {
+                newsResults.add(newsItem);
+            }
+        }
+        return newsResults;
     }
 
-    @Override //?
+    @Override
     public ArrayList<NewsItem> getAllNews()
     {
+        ArrayList<NewsItem> allNews = new ArrayList();
         allNews.addAll(this.filmNews);
         allNews.addAll(this.bookNews);
         allNews.addAll(this.diskNews);

@@ -9,13 +9,11 @@ public final class Controller {
     private final CommandProvider provider = new CommandProvider();
     private final char paramDelimeter = ' ';
 
-    public String executeTask(String request) {
+    public String executeCommand(String request) {
         String commandName;
-        Command executionCommand;
         commandName = request.substring(0, request.indexOf(paramDelimeter));
-        executionCommand = provider.getCommand(commandName);
-        String response;
-        response = executionCommand.execute(request);
+        Command executionCommand = provider.getCommand(commandName);
+        String response = executionCommand.execute(request);
         return response;
     }
 }
