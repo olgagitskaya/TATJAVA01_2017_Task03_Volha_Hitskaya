@@ -2,6 +2,7 @@ package by.catalog.dao.impl;
 
 import by.catalog.bean.NewsItem;
 import by.catalog.dao.NewsItemDAO;
+import by.catalog.dao.exception.DAOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -22,28 +23,34 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     private ArrayList<NewsItem> diskNews = new ArrayList<NewsItem>();
 
 
-    private XmlFileNewsItemDAO() //обработать exception !!!!!!!!!!
+    public XmlFileNewsItemDAO() throws DAOException
     {
         try
         {
             loadDataSourceFile();
         }
-        catch (Exception e)
+        catch (DAOException e)
         {
-            throw new RuntimeException(e);
+            throw new DAOException(e);
         }
     }
 
-    private void loadDataSourceFile() throws Exception
+    private void loadDataSourceFile() throws DAOException
     {
-        String filePath = new File("src/DataSource.xml").getAbsolutePath();
-        File file = new File(filePath);
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(file);
-        this.filmNews = loadNewsCategory(document,"FilmNews");
-        this.bookNews = loadNewsCategory(document,"BookNews");
-        this.diskNews = loadNewsCategory(document,"DiskNews");
+        try{
+            String filePath = new File("src/DataSource.xml").getAbsolutePath();
+            File file = new File(filePath);
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.parse(file);
+            this.filmNews = loadNewsCategory(document,"FilmNews");
+            this.bookNews = loadNewsCategory(document,"BookNews");
+            this.diskNews = loadNewsCategory(document,"DiskNews");
+        }catch(Exception e)
+        {
+            throw new DAOException("Error loading Xml File");
+        }
+
     }
 
     public ArrayList<NewsItem> loadNewsCategory(Document document, String category)
@@ -80,21 +87,21 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     }
 
     @Override
-    public String getNewsItemByTitle(String title)
+    public NewsItem getNewsItemByTitle(String title)
     {
         ArrayList<NewsItem> allNews = getAllNews();
         for(NewsItem newsItem: allNews)
             {
                 if(newsItem.getTitle().equals(title))
                 {
-                    return title;
+                    return newsItem;
                 }
             }
         return null;
     }
 
     @Override
-    public String getNewsItemByNewsText(String text)
+    public ArrayList<NewsItem> getNewsItemByNewsText(String text)
     {
         ArrayList<NewsItem> allNews = getAllNews();
         ArrayList<NewsItem> newsResults = new ArrayList<NewsItem>();
@@ -105,7 +112,7 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
                 newsResults.add(newsItem);
             }
         }
-        return newsResults.toString();
+        return newsResults;
     }
 
     @Override

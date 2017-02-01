@@ -10,10 +10,10 @@ import java.util.Map;
  * Created by Volha_Hitskaya on 1/30/2017.
  */
 public interface NewsItemDAO {
-    void addNewsItem(String category, NewsItem newsItem)  throws DAOException;
-    String getNewsItemByTitle(String title)  throws DAOException;
-    String getNewsItemByNewsText(String text)  throws DAOException;
-    ArrayList<NewsItem> getAllNews()  throws DAOException;
+    void addNewsItem(String category, NewsItem newsItem);
+    NewsItem getNewsItemByTitle(String title);
+    ArrayList<NewsItem> getNewsItemByNewsText(String text);
+    ArrayList<NewsItem> getAllNews();
 //    void getFilmNews();
 //    void getBookNews();
 //    void getDiskNews();
