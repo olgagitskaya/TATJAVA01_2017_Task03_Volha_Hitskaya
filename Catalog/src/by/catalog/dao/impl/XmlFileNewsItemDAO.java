@@ -94,7 +94,7 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     }
 
     @Override
-    public ArrayList<NewsItem> getNewsItemByNewsText(String text)
+    public String getNewsItemByNewsText(String text)
     {
         ArrayList<NewsItem> allNews = getAllNews();
         ArrayList<NewsItem> newsResults = new ArrayList<NewsItem>();
@@ -105,7 +105,7 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
                 newsResults.add(newsItem);
             }
         }
-        return newsResults;
+        return newsResults.toString();
     }
 
     @Override
