@@ -8,6 +8,10 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +20,8 @@ import java.util.Map;
 /**
  * Created by Volha_Hitskaya on 1/30/2017.
  */
-public class XmlFileNewsItemDAO implements NewsItemDAO{
+public class XmlFileNewsItemDAO implements NewsItemDAO
+{
 
     private ArrayList<NewsItem> filmNews = new ArrayList<NewsItem>();
     private ArrayList<NewsItem> bookNews = new ArrayList<NewsItem>();
@@ -37,76 +42,87 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
 
     private void loadDataSourceFile() throws DAOException
     {
-        try{
+        try
+        {
             String filePath = new File("src/DataSource.xml").getAbsolutePath();
             File file = new File(filePath);
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(file);
-            this.filmNews = loadNewsCategory(document,"Film");
-            this.bookNews = loadNewsCategory(document,"Book");
-            this.diskNews = loadNewsCategory(document,"Disk");
-        }catch(Exception e)
+            this.filmNews = loadNewsCategory(document, "film");
+            this.bookNews = loadNewsCategory(document, "book");
+            this.diskNews = loadNewsCategory(document, "disk");
+        }
+        catch (Exception e)
         {
             throw new DAOException("Error loading Xml File");
         }
 
     }
 
-    public ArrayList<NewsItem> loadNewsCategory(Document document, String category)
+    private ArrayList<NewsItem> loadNewsCategory(Document document, String category) throws DAOException
     {
-        ArrayList<NewsItem> news = new ArrayList<NewsItem>();
-        NodeList newsList = document.getElementsByTagName(category).item(0).getChildNodes();
-        for (int i=0; i < newsList.getLength(); i++)
+        try
         {
-            String title = newsList.item(i).getAttributes().getNamedItem("title").getNodeValue();
-            String dateOfRelease = newsList.item(i).getAttributes().getNamedItem("dateofrelease").getNodeValue();
-            String newsText = newsList.item(i).getTextContent();
-            NewsItem newsItem = new NewsItem(category, title, dateOfRelease, newsText);
-            news.add(newsItem);
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            XPathExpression expr1 = xpath.compile("/catalog/" + category + "/newsItem");
+            NodeList newsList = (NodeList) expr1.evaluate(document, XPathConstants.NODESET);
+            ArrayList<NewsItem> news = new ArrayList<NewsItem>();
+            for (int i = 0; i < newsList.getLength(); i++)
+            {
+                String title = newsList.item(i).getAttributes().getNamedItem("title").getNodeValue();
+                String date = newsList.item(i).getAttributes().getNamedItem("date").getNodeValue();
+                String additionalinfo = newsList.item(i).getAttributes().getNamedItem("additionalinfo").getNodeValue();
+                NewsItem newsItem = new NewsItem(category, title, date, additionalinfo);
+                news.add(newsItem);
+            }
+            return news;
         }
-        return news;
+        catch (Exception e)
+        {
+            throw new DAOException("Error loading news category");
+        }
+
     }
 
     @Override
     public void addNewsItem(String category, NewsItem newsItem)
     {
-        if(category.equals("Film"))
+        if (category.equals("film"))
         {
             this.filmNews.add(newsItem);
-        }
-        else if(category.equals("Book"))
+        } else if (category.equals("book"))
         {
             this.bookNews.add(newsItem);
-        }
-        else if(category.equals("Disk"))
+        } else if (category.equals("disk"))
         {
             this.diskNews.add(newsItem);
         }
     }
 
     @Override
-    public NewsItem getNewsItemByTitle(String title)
+    public ArrayList<NewsItem> getNewsItemsByTitle(String title)
     {
         ArrayList<NewsItem> allNews = getAllNews();
-        for(NewsItem newsItem: allNews)
+        ArrayList<NewsItem> result = new ArrayList<>();
+        for (NewsItem newsItem : allNews)
+        {
+            if (newsItem.getTitle().equals(title))
             {
-                if(newsItem.getTitle().equals(title))
-                {
-                    return newsItem;
-                }
+                result.add(newsItem);
             }
-        return null;
+        }
+        return result;
     }
 
     @Override
-    public ArrayList<NewsItem> getNewsItemByNewsText(String text)
+    public ArrayList<NewsItem> getNewsItemByDate(String date)
     {
         ArrayList<NewsItem> allNews = getAllNews();
         ArrayList<NewsItem> newsResults = new ArrayList<NewsItem>();
-        for(NewsItem newsItem: allNews)
+        for (NewsItem newsItem : allNews)
         {
-            if(newsItem.getNewsText().contains(text))
+            if (newsItem.getDate().equals(date))
             {
                 newsResults.add(newsItem);
             }
@@ -114,8 +130,8 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
         return newsResults;
     }
 
-    @Override
-    public ArrayList<NewsItem> getAllNews()
+
+    private ArrayList<NewsItem> getAllNews()
     {
         ArrayList<NewsItem> allNews = new ArrayList();
         allNews.addAll(this.filmNews);
@@ -123,7 +139,6 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
         allNews.addAll(this.diskNews);
         return allNews;
     }
-
 
 
 }

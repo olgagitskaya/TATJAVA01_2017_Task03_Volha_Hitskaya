@@ -7,6 +7,6 @@ public class CommandName
 {
     public static String ADD_NEWS_ITEM = "ADD";
     public static String SEARCH_NEWS_ITEM_TITLE = "SEARCHTITLE";
-    public static String SEARCH_NEWS_ITEM_TEXT = "SEARCHTEXT";
+    public static String SEARCH_NEWS_ITEM_DATE = "SEARCHDATE";
     public static String WRONG_REQUEST = "WRONG_REQUEST";
 }

@@ -9,8 +9,8 @@ import by.catalog.controller.command.Command;
 public class WrongRequest implements Command
 {
     @Override
-    public String execute(NewsItem newsItem)
+    public String execute(String request)
     {
-        return null;
+        return "Wrong request";
     }
 }

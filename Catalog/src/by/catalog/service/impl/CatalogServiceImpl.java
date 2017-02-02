@@ -16,38 +16,32 @@ import java.util.Date;
  */
 public class CatalogServiceImpl implements CatalogService {
     @Override
-    public NewsItem addNewsItem(String request)
+    public NewsItem addNewsItem(String category, String title, String additionalInfo)
     {
         DAOFactory daoObjectFactory = DAOFactory.getInstance();
         NewsItemDAO newsItemDAO = daoObjectFactory.getNewsItemDAO();
-        String [] inputString = request.split(" ",3);
-        String category = "";
-        String title = "";
-        String newsText = "";
         Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        NewsItem newsItem = new NewsItem(category,title,dateFormat.format(currentDate),newsText);
-        newsItemDAO.addNewsItem(category,newsItem);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        NewsItem newsItem = new NewsItem(category.toLowerCase(),title,dateFormat.format(currentDate),additionalInfo);
+        newsItemDAO.addNewsItem(category.toLowerCase(),newsItem);
         return newsItem;
     }
 
     @Override
-    public NewsItem searchNewsItemByTitle(String request)
+    public ArrayList<NewsItem>  searchNewsItemByTitle(String title)
     {
         DAOFactory daoObjectFactory = DAOFactory.getInstance();
         NewsItemDAO newsItemDAO = daoObjectFactory.getNewsItemDAO();
-        String [] inputString = request.split(" ",4);
-        NewsItem result = newsItemDAO.getNewsItemByTitle(inputString[2]);
+        ArrayList<NewsItem> result = newsItemDAO.getNewsItemsByTitle(title);
         return result;
     }
 
     @Override
-    public ArrayList<NewsItem> searchNewsItemByNewsText(String request)
+    public ArrayList<NewsItem> searchNewsItemByDate(String date)
     {
         DAOFactory daoObjectFactory = DAOFactory.getInstance();
         NewsItemDAO newsItemDAO = daoObjectFactory.getNewsItemDAO();
-        String [] inputString = request.split(" ",3);
-        ArrayList<NewsItem> result = newsItemDAO.getNewsItemByNewsText(inputString[2]);
+        ArrayList<NewsItem> result = newsItemDAO.getNewsItemByDate(date);
         return result;
     }
 }

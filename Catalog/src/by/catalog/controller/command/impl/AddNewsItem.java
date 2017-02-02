@@ -8,21 +8,25 @@ import by.catalog.service.factory.ServiceFactory;
 /**
  * Created by Volha_Hitskaya on 1/30/2017.
  */
-public class AddNewsItem implements Command{
+public class AddNewsItem implements Command
+{
     String response = null;
+
     @Override
-    public String execute(NewsItem newsItem)
+    public String execute(String request)
     {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         CatalogService catalogService = serviceFactory.getCatalogService();
-        if(catalogService.addNewsItem(newsItem.toString())!=null)
-
+        String[] inputString = request.split(" ", 4);
+        String category = inputString[1];
+        String title = inputString[2];
+        String additionalinfo = inputString[3];
+        NewsItem result = catalogService.addNewsItem(category, title, additionalinfo);
+        if (result != null)
         {
-            response = "NewsItem added";
+            response = "NewsItem added\n" + result.toString();
             return response;
         }
-
-        return"NewsItem not added";
-
+        return "Not Added";
     }
 }

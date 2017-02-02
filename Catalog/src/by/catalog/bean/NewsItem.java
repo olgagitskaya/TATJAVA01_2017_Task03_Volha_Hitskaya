@@ -6,14 +6,14 @@ package by.catalog.bean;
 public class NewsItem {
     private String category;
     private String title;
-    private String dateOfRelease;
-    private String newsText;
+    private String date;
+    private String additionalinfo;
 
-    public NewsItem(String category, String title, String dateOfRelease, String newsText) {
+    public NewsItem(String category, String title, String date, String additionalinfo) {
         this.category = category;
         this.title = title;
-        this.dateOfRelease = dateOfRelease;
-        this.newsText = newsText;
+        this.date = date;
+        this.additionalinfo = additionalinfo;
     }
 
     public String getTitle()
@@ -21,9 +21,11 @@ public class NewsItem {
         return this.title;
     }
 
-    public String getNewsText()
+    public String getDate(){ return this.date; }
+
+    public String toString()
     {
-        return this.newsText;
+        return this.category + " " +this.title+ " " +this.date+ " " +this.additionalinfo;
     }
 
 
