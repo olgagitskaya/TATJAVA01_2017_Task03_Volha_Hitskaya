@@ -43,9 +43,9 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(file);
-            this.filmNews = loadNewsCategory(document,"FilmNews");
-            this.bookNews = loadNewsCategory(document,"BookNews");
-            this.diskNews = loadNewsCategory(document,"DiskNews");
+            this.filmNews = loadNewsCategory(document,"Film");
+            this.bookNews = loadNewsCategory(document,"Book");
+            this.diskNews = loadNewsCategory(document,"Disk");
         }catch(Exception e)
         {
             throw new DAOException("Error loading Xml File");
@@ -61,9 +61,8 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
         {
             String title = newsList.item(i).getAttributes().getNamedItem("title").getNodeValue();
             String dateOfRelease = newsList.item(i).getAttributes().getNamedItem("dateofrelease").getNodeValue();
-            String additionalInfo = newsList.item(i).getAttributes().getNamedItem("additionalinfo").getNodeValue();
             String newsText = newsList.item(i).getTextContent();
-            NewsItem newsItem = new NewsItem(category, title, dateOfRelease, additionalInfo, newsText);
+            NewsItem newsItem = new NewsItem(category, title, dateOfRelease, newsText);
             news.add(newsItem);
         }
         return news;
@@ -72,15 +71,15 @@ public class XmlFileNewsItemDAO implements NewsItemDAO{
     @Override
     public void addNewsItem(String category, NewsItem newsItem)
     {
-        if(category.equals("FilmNews"))
+        if(category.equals("Film"))
         {
             this.filmNews.add(newsItem);
         }
-        else if(category.equals("BookNews"))
+        else if(category.equals("Book"))
         {
             this.bookNews.add(newsItem);
         }
-        else if(category.equals("DiskNews"))
+        else if(category.equals("Disk"))
         {
             this.diskNews.add(newsItem);
         }

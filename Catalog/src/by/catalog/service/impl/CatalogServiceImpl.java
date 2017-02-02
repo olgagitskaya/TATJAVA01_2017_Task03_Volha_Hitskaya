@@ -23,11 +23,10 @@ public class CatalogServiceImpl implements CatalogService {
         String [] inputString = request.split(" ",3);
         String category = "";
         String title = "";
-        String additionalInfo ="";
         String newsText = "";
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        NewsItem newsItem = new NewsItem(category,title,dateFormat.format(currentDate),additionalInfo,newsText);
+        NewsItem newsItem = new NewsItem(category,title,dateFormat.format(currentDate),newsText);
         newsItemDAO.addNewsItem(category,newsItem);
         return newsItem;
     }

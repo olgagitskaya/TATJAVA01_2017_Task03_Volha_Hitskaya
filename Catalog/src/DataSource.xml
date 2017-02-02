@@ -1,34 +1,34 @@
 <Catalog>
     <FilmNews>
-        <newsItem title="Meet_Joe_Black" dateofrelease="13_November_1998" additionalinfo="Directed_by_Martin_Brest">
+        <newsItem title="Meet_Joe_Black" dateofrelease="1998/11/14 21:45:01">
             Film 'Meet Joe Black' released November 13, 1998 directed by Martin Brest.
         </newsItem>
-        <newsItem title="The_Lake_House" dateofrelease="16_June_2006" additionalinfo="Directed_by_Alejandro_Agresti">
+        <newsItem title="The_Lake_House" dateofrelease="2006/06/16 02:33:16">
             Film 'The Lake House' released June 16, 2006 directed by Alejandro Agresti.
         </newsItem>
-        <newsItem title="Silence" dateofrelease="29_November_2016" additionalinfo="Directed_by_Martin_Scorsese">
+        <newsItem title="Silence" dateofrelease="2016/11/29 15:23:30">
             Film 'Silence' released November 29, 2016 directed by Martin Scorsese.
         </newsItem>
     </FilmNews>
     <BookNews>
-        <newsItem title="Pride_and_Prejudice" dateofrelease="28_January_1813" additionalinfo="Author_Jane_Austen">
+        <newsItem title="Pride_and_Prejudice" dateofrelease="1813/01/28 11:15:15">
             Book 'Pride and Prejudice' published January 28, 1813 written by Jane Austen.
         </newsItem>
-        <newsItem title="The_Martian" dateofrelease="11_February_2014" additionalinfo="Author_Andy_Weir">
+        <newsItem title="The_Martian" dateofrelease="2014/02/11 14:09:14">
             Book 'The Martian' published February 11, 2014 written by Andy Weir.
         </newsItem>
-        <newsItem title="Head_First_Java" dateofrelease="4_February_2005" additionalinfo="Authors_Kathy_Sierra_and_Bert_Bates">
+        <newsItem title="Head_First_Java" dateofrelease="2005/02/04 18:09:45">
             Book 'Head First Java' published February 4, 2005 written by Kathy Sierra and Bert Bates.
         </newsItem>
     </BookNews>
     <DiskNews>
-        <newsItem title="English_World" dateofrelease="1_September_2009" additionalinfo="Publishing_House_Macmillan">
+        <newsItem title="English_World" dateofrelease="2009/09/01 12:23:16">
             Disk 'English World' released September 1, 2009 publishing house 'Macmillan'.
         </newsItem>
-        <newsItem title="1C_Little_English" dateofrelease="3_March_2013" additionalinfo="Publishing_House_1C-Publishing">
+        <newsItem title="1C_Little English" dateofrelease="2013/03/03 12:16:55">
             Disk '1C Little English' released March 3, 2013 publishing house '1C-Publishing'.
         </newsItem>
-        <newsItem title="Russian_Language_with_the_Computer" dateofrelease="3_May_2016" additionalinfo="Publishing_House_1C-Publishing">
+        <newsItem title="Russian_Language_with_the_Computer" dateofrelease="2016/05/03 16:34:00">
             Disk 'Russian Language with the Computer' released May 3, 2016 publishing house '1C-Publishing'.
         </newsItem>
     </DiskNews>

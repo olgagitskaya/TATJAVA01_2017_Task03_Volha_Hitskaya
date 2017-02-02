@@ -1,5 +1,6 @@
 package by.catalog.controller.command.impl;
 
+import by.catalog.bean.NewsItem;
 import by.catalog.controller.command.Command;
 
 /**
@@ -8,7 +9,7 @@ import by.catalog.controller.command.Command;
 public class WrongRequest implements Command
 {
     @Override
-    public String execute(String request)
+    public String execute(NewsItem newsItem)
     {
         return null;
     }

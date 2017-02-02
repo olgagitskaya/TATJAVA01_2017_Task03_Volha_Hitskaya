@@ -1,5 +1,6 @@
 package by.catalog.controller.command.impl;
 
+import by.catalog.bean.NewsItem;
 import by.catalog.controller.command.Command;
 import by.catalog.service.CatalogService;
 import by.catalog.service.factory.ServiceFactory;
@@ -11,10 +12,10 @@ import by.catalog.service.factory.ServiceFactory;
 public class SearchNewsItemByNewsText implements Command {
     String response = null;
     @Override
-    public String execute(String request) {
+    public String execute(NewsItem newsItem) {
     ServiceFactory serviceFactory = ServiceFactory.getInstance();
     CatalogService catalogService = serviceFactory.getCatalogService();
-        if(catalogService.searchNewsItemByNewsText(request)!=null)
+        if(catalogService.searchNewsItemByNewsText(newsItem.toString())!=null)
 
     {
         response = "NewsItem is found by text";

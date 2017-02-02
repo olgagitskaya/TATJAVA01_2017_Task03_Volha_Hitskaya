@@ -1,5 +1,6 @@
 package by.catalog.controller.command.impl;
 
+import by.catalog.bean.NewsItem;
 import by.catalog.controller.command.Command;
 import by.catalog.dao.NewsItemDAO;
 import by.catalog.dao.factory.DAOFactory;
@@ -13,10 +14,10 @@ public class SearchNewsItemByTitle implements Command {
     String response = null;
 
     @Override
-    public String execute(String request) {
+    public String execute(NewsItem newsItem) {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         CatalogService catalogService = serviceFactory.getCatalogService();
-        if (catalogService.searchNewsItemByTitle(request) != null) {
+        if (catalogService.searchNewsItemByTitle(newsItem.toString()) != null) {
             response = "NewsItem is found by title";
             return response;
         }

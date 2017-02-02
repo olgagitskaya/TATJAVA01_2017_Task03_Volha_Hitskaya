@@ -38,12 +38,12 @@ public final class DAOFactory
         return instance;
     }
 
-    public NewsItemDAO getNewsItemDAO() throws DAOException
+    public NewsItemDAO getNewsItemDAO()
     {
-        if(xmlFileNewsItemImpl==null)
-        {
-            throw new DAOException("DAO was not initialized");
-        }
+//        if(xmlFileNewsItemImpl==null)
+//        {
+//            throw new DAOException("DAO was not initialized");
+//        }
         return xmlFileNewsItemImpl;
     }
 }
