@@ -10,14 +10,15 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
         Controller controller = new Controller();
-        Scanner sc = new Scanner(System.in);
-        while(true)
+        try (Scanner sc = new Scanner(System.in))
         {
-            String command = sc.nextLine();
-            String commandResult = controller.executeCommand(command);
-            System.out.println(commandResult);
+            while (true)
+            {
+                String command = sc.nextLine();
+                String commandResult = controller.executeCommand(command);
+                System.out.println(commandResult);
+            }
+
         }
-
-
     }
 }
