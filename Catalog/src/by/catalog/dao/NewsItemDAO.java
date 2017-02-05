@@ -11,7 +11,5 @@ import java.util.Map;
  */
 public interface NewsItemDAO {
     void addNewsItem(String category, NewsItem newsItem);
-    ArrayList<NewsItem> getNewsItemsByTitle(String title);
-    ArrayList<NewsItem> getNewsItemByDate(String date);
-    //ArrayList<NewsItem> getAllNews();
+    ArrayList<NewsItem> getNewsItemsByTitleAndDate(String title, String date);
 }

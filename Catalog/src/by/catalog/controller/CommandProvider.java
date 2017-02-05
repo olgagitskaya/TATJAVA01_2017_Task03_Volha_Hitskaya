@@ -2,10 +2,7 @@ package by.catalog.controller;
 
 import by.catalog.controller.command.Command;
 import by.catalog.controller.command.CommandName;
-import by.catalog.controller.command.impl.AddNewsItem;
-import by.catalog.controller.command.impl.SearchNewsItemByDate;
-import by.catalog.controller.command.impl.SearchNewsItemByTitle;
-import by.catalog.controller.command.impl.WrongRequest;
+import by.catalog.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +17,7 @@ final class CommandProvider
     CommandProvider()
     {
         commandList.put(CommandName.ADD_NEWS_ITEM, new AddNewsItem());
-        commandList.put(CommandName.SEARCH_NEWS_ITEM_TITLE, new SearchNewsItemByTitle());
-        commandList.put(CommandName.SEARCH_NEWS_ITEM_DATE, new SearchNewsItemByDate());
+        commandList.put(CommandName.SEARCH, new Search());
         commandList.put(CommandName.WRONG_REQUEST, new WrongRequest());
     }
 

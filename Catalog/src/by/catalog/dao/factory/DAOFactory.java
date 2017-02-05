@@ -23,7 +23,7 @@ public final class DAOFactory
         }
         catch (DAOException e)
         {
-           xlmFileDAO = null;
+            xlmFileDAO = null;
         }
         finally
         {
@@ -38,12 +38,12 @@ public final class DAOFactory
         return instance;
     }
 
-    public NewsItemDAO getNewsItemDAO()
+    public NewsItemDAO getNewsItemDAO() throws DAOException
     {
-//        if(xmlFileNewsItemImpl==null)
-//        {
-//            throw new DAOException("DAO was not initialized");
-//        }
+        if (xmlFileNewsItemImpl == null)
+        {
+            throw new DAOException("DAO was not initialized");
+        }
         return xmlFileNewsItemImpl;
     }
 }

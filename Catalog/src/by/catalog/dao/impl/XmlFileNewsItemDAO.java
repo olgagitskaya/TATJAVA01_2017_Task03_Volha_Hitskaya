@@ -101,35 +101,35 @@ public class XmlFileNewsItemDAO implements NewsItemDAO
     }
 
     @Override
-    public ArrayList<NewsItem> getNewsItemsByTitle(String title)
-    {
-        ArrayList<NewsItem> allNews = getAllNews();
-        ArrayList<NewsItem> result = new ArrayList<>();
-        for (NewsItem newsItem : allNews)
-        {
-            if (newsItem.getTitle().equals(title))
-            {
-                result.add(newsItem);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public ArrayList<NewsItem> getNewsItemByDate(String date)
+    public ArrayList<NewsItem> getNewsItemsByTitleAndDate(String title, String date)
     {
         ArrayList<NewsItem> allNews = getAllNews();
         ArrayList<NewsItem> newsResults = new ArrayList<NewsItem>();
+        if(title.isEmpty() && date.isEmpty())
+        {
+            return newsResults;
+        }
         for (NewsItem newsItem : allNews)
         {
-            if (newsItem.getDate().equals(date))
+            boolean titleFound = true;
+            if (!title.isEmpty() && !newsItem.getTitle().contains(title))
+            {
+                titleFound = false;
+            }
+
+            boolean dateFound = true;
+            if (!date.isEmpty() && !newsItem.getDate().contains(date))
+            {
+                dateFound = false;
+            }
+
+            if (titleFound && dateFound)
             {
                 newsResults.add(newsItem);
             }
         }
         return newsResults;
     }
-
 
     private ArrayList<NewsItem> getAllNews()
     {

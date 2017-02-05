@@ -3,6 +3,7 @@ package by.catalog.controller.command.impl;
 import by.catalog.bean.NewsItem;
 import by.catalog.controller.command.Command;
 import by.catalog.service.CatalogService;
+import by.catalog.service.exception.ServiceException;
 import by.catalog.service.factory.ServiceFactory;
 
 /**
@@ -15,18 +16,25 @@ public class AddNewsItem implements Command
     @Override
     public String execute(String request)
     {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        CatalogService catalogService = serviceFactory.getCatalogService();
-        String[] inputString = request.split(" ", 4);
-        String category = inputString[1];
-        String title = inputString[2];
-        String additionalinfo = inputString[3];
-        NewsItem result = catalogService.addNewsItem(category, title, additionalinfo);
-        if (result != null)
+        try
         {
-            response = "NewsItem added\n" + result.toString();
-            return response;
+            ServiceFactory serviceFactory = ServiceFactory.getInstance();
+            CatalogService catalogService = serviceFactory.getCatalogService();
+            String[] inputString = request.split(" ", 4);
+            String category = inputString[1];
+            String title = inputString[2];
+            String additionalInfo = inputString[3];
+            NewsItem result = catalogService.addNewsItem(category, title, additionalInfo);
+            if (result != null)
+            {
+                response = "NewsItem added\n" + result.toString();
+                return response;
+            }
+            return "Not Added";
         }
-        return "Not Added";
+        catch (Exception e)
+        {
+            return e.getMessage();
+        }
     }
 }

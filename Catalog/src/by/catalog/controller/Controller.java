@@ -10,10 +10,8 @@ import java.util.Date;
  */
 public final class Controller {
     private final CommandProvider provider = new CommandProvider();
-    //private final char paramDelimeter = ' ';
 
     public String executeCommand(String request) {
-       // String commandName = request.substring(0, request.indexOf(paramDelimeter));
         String commandName = request.split(" ",2)[0];
         Command executionCommand = provider.getCommand(commandName);
         String response = executionCommand.execute(request);
